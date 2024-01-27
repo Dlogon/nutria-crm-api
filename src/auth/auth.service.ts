@@ -4,6 +4,7 @@ import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { JWT_TTL } from './constants';
 
 @Injectable({})
 export class AuthService {
@@ -35,7 +36,7 @@ export class AuthService {
 
     const secret = this.config.get('JWT_SECRET');
     const token = await this.jwt.signAsync(tokenData, {
-      expiresIn: '60m',
+      expiresIn: JWT_TTL,
       secret: secret,
     });
 
