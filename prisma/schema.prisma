@@ -20,4 +20,24 @@ model User {
 
   firsName String?
   lastName String?
+  Lead     Lead[]
+}
+
+model Lead {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    Int?
+
+  firsName String?
+  lastName String
+
+  jobTitle String?
+
+  officePhone String?
+  mobilePhone String?
+
+  source String?
 }
