@@ -4,7 +4,8 @@ import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { JWT_TTL } from './constants';
+import * as JWTConstants from './constants';
+import { User } from './decorators';
 
 @Injectable({})
 export class AuthService {
@@ -28,20 +29,33 @@ export class AuthService {
     return this.signToken(user.id, user.email);
   }
 
-  async signToken(userId: number, email: string): Promise<{ access_token: string }> {
+  async signToken(
+    userId: number,
+    email: string,
+  ): Promise<{
+    access_token: string;
+    refresh_token: string;
+  }> {
     const tokenData = {
       sub: userId,
       email,
     };
 
-    const secret = this.config.get('JWT_SECRET');
+    const secret = this.config.get(JWTConstants.JWT_SECRET_ENV);
+    const refreshSecret = this.config.get(JWTConstants.JWT__REFRESH_SECRET_ENV);
+
     const token = await this.jwt.signAsync(tokenData, {
-      expiresIn: JWT_TTL,
+      expiresIn: JWTConstants.JWT_TTL,
       secret: secret,
+    });
+    const refreshToken = await this.jwt.signAsync(tokenData, {
+      expiresIn: JWTConstants.JWT__REFRESH_TTL,
+      secret: refreshSecret,
     });
 
     return {
       access_token: token,
+      refresh_token: refreshToken,
     };
   }
 
@@ -54,5 +68,9 @@ export class AuthService {
       },
     });
     return user;
+  }
+
+  refresh(@User() user) {
+    return this.signToken(user.id, user.email);
   }
 }
