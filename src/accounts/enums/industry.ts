@@ -1,0 +1,16 @@
+export enum Industry {
+  TECHNOLOGY = 'Technology',
+  FINANCE = 'Finance',
+  HEALTHCARE = 'Healthcare',
+  EDUCATION = 'Education',
+  RETAIL = 'Retail',
+  MANUFACTURING = 'Manufacturing',
+  MEDIA = 'Media',
+  ENERGY = 'Energy',
+  HOSPITALITY = 'Hospitality',
+  CONSULTING = 'Consulting',
+  TRANSPORTATION = 'Transportation',
+  TELECOMMUNICATIONS = 'Telecommunications',
+  AUTOMOTIVE = 'Automotive',
+  OTHER = 'Other',
+}

@@ -12,12 +12,5 @@ export class PrismaService extends PrismaClient {
         },
       },
     });
-    this.$extends({
-      model: {
-        $allModels: {
-          async softDelete() {},
-        },
-      },
-    });
   }
 }
