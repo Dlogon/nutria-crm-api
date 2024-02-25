@@ -1,5 +1,8 @@
 import { CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-
+/**
+ * @description Base model for entities
+ * class with id, createdAt and updatedAt columns
+ */
 @Entity()
 export abstract class BaseModelEntity {
   @PrimaryGeneratedColumn('increment')
