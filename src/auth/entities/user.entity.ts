@@ -1,3 +1,4 @@
+import { Exclude, instanceToPlain } from 'class-transformer';
 import { IsEmail } from 'class-validator';
 import { BaseModelEntity } from 'src/common/database/entities/base.entity';
 import { Column, Entity } from 'typeorm';
@@ -9,11 +10,16 @@ export class User extends BaseModelEntity {
   email: string;
 
   @Column({ nullable: true })
-  private hash: string;
+  @Exclude({ toPlainOnly: true })
+  hash: string;
 
   @Column({ nullable: true })
   firstName: string;
 
   @Column({ nullable: true })
   LastName: string;
+
+  toJSON() {
+    return instanceToPlain(this);
+  }
 }

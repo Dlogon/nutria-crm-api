@@ -1,30 +1,36 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AuthDto } from './dto';
-import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as JWTConstants from './constants';
-import { User } from './decorators';
+import { User as UserLoged } from './decorators';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User as userEntity } from './entities/user.entity';
+import { Repository } from 'typeorm';
+import * as argon from 'argon2';
 
 @Injectable({})
 export class AuthService {
   constructor(
     private jwt: JwtService,
     private config: ConfigService,
+    @InjectRepository(userEntity)
+    private usersRepository: Repository<userEntity>,
   ) {}
 
   async login(dto: AuthDto) {
     const message = 'Invalid credentials';
-    return;
-    // const user = await this.prisma.user.findUnique({
-    //   where: { email: dto.email },
-    // });
-    // if (!user) throw new ForbiddenException(message);
 
-    // const pwMatch = await argon.verify(user.hash, dto.password);
-    // if (!pwMatch) throw new ForbiddenException(message);
+    const user = await this.usersRepository.findOne({
+      where: { email: dto.email },
+    });
 
-    // return this.signToken(user.id, user.email);
+    if (!user) throw new ForbiddenException(message);
+
+    const pwMatch = await argon.verify(user.hash, dto.password);
+    if (!pwMatch) throw new ForbiddenException(message);
+
+    return this.signToken(user.id, user.email);
   }
 
   async signToken(
@@ -58,18 +64,17 @@ export class AuthService {
   }
 
   async signup(dto: AuthDto) {
-    return {};
-    // const hash = await argon.hash(dto.password);
-    // const user = await this.prisma.user.create({
-    //   data: {
-    //     email: dto.email,
-    //     hash,
-    //   },
-    // });
-    // return user;
+    const hash = await argon.hash(dto.password);
+    const user = await this.usersRepository.create({
+      email: dto.email,
+      hash,
+    });
+    await this.usersRepository.save(user);
+
+    return user;
   }
 
-  refresh(@User() user) {
+  refresh(@UserLoged() user) {
     return this.signToken(user.id, user.email);
   }
 }
