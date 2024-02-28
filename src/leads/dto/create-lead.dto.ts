@@ -1,4 +1,4 @@
-import { IsEmpty, IsEnum, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 import { Source } from '../enums/source';
 
 export class CreateLeadDto {
