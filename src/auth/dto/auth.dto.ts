@@ -6,12 +6,16 @@ export class AuthDto {
   @IsNotEmpty()
   email: string;
 
-  @IsString()
+  @IsString({})
   @IsNotEmpty()
-  @IsStrongPassword({
-    minLength: 8,
-    minNumbers: 1,
-    minUppercase: 1,
-  })
+  @IsStrongPassword(
+    {
+      minLength: 8,
+      minNumbers: 1,
+      minUppercase: 1,
+      minSymbols: 0,
+    },
+    { message: 'password should be len 8 and contain 1 number and 1 upper case letter' },
+  )
   password: string;
 }
