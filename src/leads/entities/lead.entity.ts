@@ -2,6 +2,7 @@ import { BaseModelEntity } from 'src/common/database/entities/base.entity';
 import { createdBy } from 'src/common/database/entities/createdBy';
 import { softDeteles } from 'src/common/database/entities/softDeletes';
 import { Column, Entity } from 'typeorm';
+import { Source } from '../enums/source';
 @Entity()
 export class Lead extends BaseModelEntity implements softDeteles, createdBy {
   @Column({ nullable: true })
@@ -22,5 +23,6 @@ export class Lead extends BaseModelEntity implements softDeteles, createdBy {
   @Column({ nullable: true })
   mobilePhone: string;
 
+  @Column({ type: 'enum', nullable: true, enum: Source })
   source: string;
 }
