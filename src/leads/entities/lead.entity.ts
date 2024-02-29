@@ -1,10 +1,9 @@
-import { BaseModelEntity } from 'src/common/database/entities/base.entity';
-import { createdBy } from 'src/common/database/entities/createdBy';
-import { softDeteles } from 'src/common/database/entities/softDeletes';
+import { BaseModelEntity } from '../../common/database/entities';
+import { createdBy } from '../../common/database/entities';
 import { Column, Entity } from 'typeorm';
 import { Source } from '../enums/source';
 @Entity()
-export class Lead extends BaseModelEntity implements softDeteles, createdBy {
+export class Lead extends BaseModelEntity implements createdBy {
   @Column({ nullable: true })
   userId: number;
   @Column({ nullable: true })
