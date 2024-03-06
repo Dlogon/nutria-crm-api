@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { AccountsService } from './accounts.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { PaginationOptions } from '../common/pagination';
 
 @Controller('accounts')
 export class AccountsController {
@@ -13,8 +14,8 @@ export class AccountsController {
   }
 
   @Get()
-  findAll() {
-    return this.accountsService.findAll();
+  async get(@Query() paginationOptions: PaginationOptions) {
+    return await this.accountsService.findPaginated(paginationOptions);
   }
 
   @Get(':id')

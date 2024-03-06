@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { LeadsService } from './leads.service';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
-import { JwtGuard } from 'src/auth/guards';
+import { JwtGuard } from '../auth/guards';
 
 @Controller('leads')
 @UseGuards(JwtGuard)
