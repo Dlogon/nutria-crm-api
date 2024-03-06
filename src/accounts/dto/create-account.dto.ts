@@ -1,6 +1,15 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, IsString, IsUrl } from 'class-validator';
+import {
+  IsEmail,
+  IsEmpty,
+  IsEnum,
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsString,
+  IsUrl,
+  isNotEmpty,
+} from 'class-validator';
 import { Industry } from '../enums/industry';
-import { AccountType } from '../enums/type';
+import { AccountType } from '../enums/accountType';
 
 export class CreateAccountDto {
   @IsString()
@@ -24,7 +33,9 @@ export class CreateAccountDto {
 
   @IsEmail()
   email: string;
-  @IsUrl()
+
+  // @IsUrl()
+  // @isNotEmpty(true)
   website: string;
 
   @IsEnum(Industry)
