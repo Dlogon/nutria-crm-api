@@ -1,7 +1,5 @@
-import { BaseModelEntity } from '../../common/database/entities';
+import { BaseModelEntity } from '@common/database/entities';
 import { Column, Entity } from 'typeorm';
-import { Industry } from '../enums/industry';
-import { AccountType } from '../enums/accountType';
 
 @Entity()
 export class Account extends BaseModelEntity {
@@ -26,9 +24,9 @@ export class Account extends BaseModelEntity {
   @Column({ nullable: true })
   website: string;
 
-  @Column({ type: 'enum', nullable: true, enum: Industry })
+  @Column({ nullable: true })
   industry: string;
 
-  @Column({ type: 'enum', nullable: true, enum: AccountType })
+  @Column({ nullable: true })
   type: string;
 }

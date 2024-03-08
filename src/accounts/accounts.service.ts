@@ -3,7 +3,7 @@ import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './entities/account.entity';
-import { PaginationOptions, Pagination } from '../common/pagination';
+import { PaginationOptions, Pagination } from '@common/pagination';
 import { Repository } from 'typeorm';
 
 @Injectable()
