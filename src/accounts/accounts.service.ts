@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,8 +19,8 @@ export class AccountsService {
     return { id: account.id };
   }
 
-  findAll() {
-    return {}; //this.prisma.account.findMany();
+  async findAll() {
+    return this.accountRepository.find();
   }
 
   async findPaginated(paginationOptions: PaginationOptions) {
@@ -34,29 +34,28 @@ export class AccountsService {
     return new Pagination<Account>(results, total);
   }
 
-  findOne(id: number) {
-    return {};
-    // this.prisma.account.findUnique({
-    //   where: {
-    //     id: id,
-    //   },
-    // });
+  async findById(id: number) {
+    const acc = await this.accountRepository.findOneBy({ id });
+    if (!acc) throw new NotFoundException();
+    return acc;
   }
 
   async update(id: number, updateAccountDto: UpdateAccountDto) {
-    return {};
-    // const acc = this.prisma.account.update({
-    //   where: {
-    //     id: id,
-    //   },
-    //   data: {
-    //     ...updateAccountDto,
-    //   },
-    // });
-    // return acc;
+    let acc = await this.findById(id);
+    if (!acc) throw new NotFoundException('Record not found');
+
+    acc = await this.accountRepository.save({
+      id: id,
+      ...updateAccountDto,
+    });
+    return acc;
   }
 
-  remove(id: number) {
-    return id;
+  async remove(id: number) {
+    const deleted = await this.accountRepository.softDelete(id);
+    if (!deleted.affected) {
+      throw new NotFoundException('Can not delete this record');
+    }
+    return {};
   }
 }
