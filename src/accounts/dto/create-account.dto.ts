@@ -8,8 +8,7 @@ import {
   IsUrl,
   isNotEmpty,
 } from 'class-validator';
-import { Industry } from '../enums/industry';
-import { AccountType } from '../enums/accountType';
+import { Industry, AccountType } from '../enums';
 
 export class CreateAccountDto {
   @IsString()
