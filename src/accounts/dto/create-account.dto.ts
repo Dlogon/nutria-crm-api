@@ -3,6 +3,7 @@ import {
   IsEmpty,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   IsUrl,
@@ -38,8 +39,9 @@ export class CreateAccountDto {
   website: string;
 
   @IsEnum(Industry)
+  @IsOptional()
   industry: string;
-
+  @IsOptional()
   @IsEnum(AccountType)
   type: string;
 }
