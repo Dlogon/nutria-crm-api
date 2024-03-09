@@ -33,4 +33,9 @@ export class LeadsController {
   remove(@Param('id') id: string) {
     return this.leadsService.remove(+id);
   }
+
+  @Post('/convert/:id')
+  convertToAccount(@Param('id') id: string) {
+    return this.leadsService.convertLeadToAccount(+id);
+  }
 }

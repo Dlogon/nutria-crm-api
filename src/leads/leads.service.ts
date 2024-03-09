@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lead } from './entities/lead.entity';
 import { Repository } from 'typeorm';
+import { Account } from '@app/accounts/entities/account.entity';
 
 @Injectable()
 export class LeadsService {
@@ -45,5 +46,20 @@ export class LeadsService {
       throw new NotFoundException('Can not delete this record');
     }
     return {};
+  }
+
+  async convertLeadToAccount(id: number) {
+    let lead = await this.leadRepository.findOneBy({ id });
+    const acc = await lead.account;
+    if (!lead) throw new NotFoundException('Record not found');
+    if (acc) throw new BadRequestException('This lead has been converted');
+
+    const newAcc = new Account();
+    newAcc.firsName = lead.firsName;
+    newAcc.lastName = lead.lastName;
+    lead = await this.leadRepository.save({
+      id: id,
+      account: newAcc,
+    });
   }
 }

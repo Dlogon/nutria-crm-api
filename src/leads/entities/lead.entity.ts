@@ -1,14 +1,12 @@
 import { BaseModelEntity } from '../../common/database/entities';
 import { createdBy } from '../../common/database/entities';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToOne, JoinColumn } from 'typeorm';
 import { Source } from '../enums/source';
+import { Account } from 'src/accounts/entities/account.entity';
 @Entity()
 export class Lead extends BaseModelEntity implements createdBy {
   @Column({ nullable: true })
   userId: number;
-  @Column({ nullable: true })
-  deletedAt: Date;
-
   @Column({ nullable: true })
   firsName: string;
   @Column({ nullable: false })
@@ -24,4 +22,8 @@ export class Lead extends BaseModelEntity implements createdBy {
 
   @Column({ type: 'enum', nullable: true, enum: Source })
   source: string;
+
+  @OneToOne(() => Account, { cascade: ['insert', 'update'] })
+  @JoinColumn()
+  account: Account;
 }
