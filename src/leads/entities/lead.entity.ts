@@ -19,6 +19,8 @@ export class Lead extends BaseModelEntity implements createdBy {
   officePhone: string;
   @Column({ nullable: true })
   mobilePhone: string;
+  @Column({ nullable: true })
+  email: string;
 
   @Column({ type: 'enum', nullable: true, enum: Source })
   source: string;
