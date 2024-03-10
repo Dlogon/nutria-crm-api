@@ -1,47 +1,50 @@
 import {
   IsEmail,
-  IsEmpty,
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
   IsString,
   IsUrl,
-  isNotEmpty,
 } from 'class-validator';
 import { Industry, AccountType } from '../enums';
 
 export class CreateAccountDto {
   @IsString()
-  firsName: string;
+  @IsOptional()
+  firsName?: string;
 
   @IsString()
   @IsNotEmpty()
   lastName: string;
 
   @IsString()
-  @IsNotEmpty()
-  alias: string;
+  @IsOptional()
+  alias?: string;
 
   @IsString()
-  jobTitle: string;
+  @IsOptional()
+  jobTitle?: string;
 
   @IsPhoneNumber('MX')
-  officePhone: string;
+  @IsOptional()
+  officePhone?: string;
   @IsPhoneNumber()
-  mobilePhone: string;
+  @IsOptional()
+  mobilePhone?: string;
 
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 
-  // @IsUrl()
-  // @isNotEmpty(true)
-  website: string;
+  @IsUrl()
+  @IsOptional()
+  website?: string;
 
   @IsEnum(Industry)
   @IsOptional()
-  industry: string;
+  industry?: string;
   @IsOptional()
   @IsEnum(AccountType)
-  type: string;
+  type?: string;
 }
