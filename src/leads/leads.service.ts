@@ -55,8 +55,12 @@ export class LeadsService {
     if (acc) throw new BadRequestException('This lead has been converted');
 
     const newAcc = new Account();
+
     newAcc.firsName = lead.firsName;
     newAcc.lastName = lead.lastName;
+    newAcc.mobilePhone = lead.mobilePhone;
+    newAcc.officePhone = lead.officePhone;
+
     lead = await this.leadRepository.save({
       id: id,
       account: newAcc,
