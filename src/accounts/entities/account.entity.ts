@@ -13,6 +13,9 @@ export class Account extends BaseModelEntity {
   alias: string;
 
   @Column({ nullable: true })
+  jobTitle: string;
+
+  @Column({ nullable: true })
   officePhone: string;
 
   @Column({ nullable: true })
