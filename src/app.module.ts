@@ -6,6 +6,7 @@ import { LeadsModule } from './leads/leads.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/database.config';
+import { ContactsModule } from './contacts/contacts.module';
 @Module({
   imports: [
     AuthModule,
@@ -19,6 +20,7 @@ import { TypeOrmConfigService } from './config/database.config';
       inject: [ConfigService],
       useClass: TypeOrmConfigService,
     }),
+    ContactsModule,
   ],
 })
 export class AppModule {}
