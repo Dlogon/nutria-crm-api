@@ -25,7 +25,7 @@ export class Lead extends BaseModelEntity implements createdBy {
   @Column({ type: 'enum', nullable: true, enum: Source })
   source: string;
 
-  @OneToOne(() => Account, { cascade: ['insert', 'update'] })
+  @OneToOne(() => Account, { cascade: ['insert', 'update'], eager: true })
   @JoinColumn()
   account: Account;
 }

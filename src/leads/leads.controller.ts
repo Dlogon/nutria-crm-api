@@ -3,6 +3,7 @@ import { LeadsService } from './leads.service';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
 import { JwtGuard } from '../auth/guards';
+import { ConvertLeadToAccountDto } from './dto/convert-lead-to-acc.dto';
 
 @Controller('leads')
 @UseGuards(JwtGuard)
@@ -35,7 +36,7 @@ export class LeadsController {
   }
 
   @Post('/convert/:id')
-  convertToAccount(@Param('id') id: string) {
-    return this.leadsService.convertLeadToAccount(+id);
+  convertToAccount(@Param('id') id: string, @Body() convertLeadToAccount: ConvertLeadToAccountDto) {
+    return this.leadsService.convertLeadToAccount(+id, convertLeadToAccount);
   }
 }

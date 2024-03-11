@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Lead } from './entities/lead.entity';
 import { Repository } from 'typeorm';
 import { Account } from '@app/accounts/entities/account.entity';
+import { ConvertLeadToAccountDto } from './dto/convert-lead-to-acc.dto';
 
 @Injectable()
 export class LeadsService {
@@ -48,10 +49,15 @@ export class LeadsService {
     return {};
   }
 
-  async convertLeadToAccount(id: number) {
+  async convertLeadToAccount(
+    id: number,
+    convertLeadToAccount: ConvertLeadToAccountDto,
+  ): Promise<{ id: number }> {
     let lead = await this.leadRepository.findOneBy({ id });
-    const acc = await lead.account;
+
     if (!lead) throw new NotFoundException('Record not found');
+
+    const acc = lead.account;
     if (acc) throw new BadRequestException('This lead has been converted');
 
     const newAcc = new Account();
@@ -60,10 +66,13 @@ export class LeadsService {
     newAcc.lastName = lead.lastName;
     newAcc.mobilePhone = lead.mobilePhone;
     newAcc.officePhone = lead.officePhone;
+    Object.assign(newAcc, { ...convertLeadToAccount });
 
     lead = await this.leadRepository.save({
       id: id,
       account: newAcc,
     });
+
+    return { id: newAcc.id };
   }
 }

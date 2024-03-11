@@ -1,7 +1,7 @@
 import { IsEmail, IsEnum, IsOptional, IsString, IsUrl } from 'class-validator';
 import { AccountType, Industry } from '@app/accounts/enums';
 
-export class convertLeadToAccountDto {
+export class ConvertLeadToAccountDto {
   @IsString()
   @IsOptional()
   alias?: string;
