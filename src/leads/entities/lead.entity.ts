@@ -6,8 +6,6 @@ import { Account } from 'src/accounts/entities/account.entity';
 @Entity()
 export class Lead extends BaseModelEntity implements createdBy {
   @Column({ nullable: true })
-  userId: number;
-  @Column({ nullable: true })
   firsName: string;
   @Column({ nullable: false })
   lastName: string;
@@ -25,7 +23,7 @@ export class Lead extends BaseModelEntity implements createdBy {
   @Column({ type: 'enum', nullable: true, enum: Source })
   source: string;
 
-  @OneToOne(() => Account, { cascade: ['insert', 'update'], eager: true })
+  @OneToOne(() => Account, { cascade: ['insert', 'update'], eager: false })
   @JoinColumn()
   account: Account;
 }

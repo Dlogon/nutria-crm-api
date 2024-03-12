@@ -1,3 +1,3 @@
 export interface createdBy {
-  userId: number;
+  user: number;
 }

@@ -7,6 +7,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/database.config';
 import { ContactsModule } from './contacts/contacts.module';
+import { CreatedBySubscriber } from './common/database/subscribers/createdBy.subscriber';
 @Module({
   imports: [
     AuthModule,
@@ -22,5 +23,7 @@ import { ContactsModule } from './contacts/contacts.module';
     }),
     ContactsModule,
   ],
+
+  providers: [CreatedBySubscriber],
 })
 export class AppModule {}
