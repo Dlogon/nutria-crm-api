@@ -16,6 +16,6 @@ export class CreatedBySubscriber implements EntitySubscriberInterface<BaseModelE
   }
   beforeInsert(event: InsertEvent<any>) {
     const currentUser = this.currentUserSvc.getUsername();
-    event.entity.userId = currentUser.sub;
+    event.entity.user = currentUser.sub;
   }
 }
