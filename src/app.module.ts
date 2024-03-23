@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/database.config';
 import { ContactsModule } from './contacts/contacts.module';
 import { CreatedBySubscriber } from './common/database/subscribers/createdBy.subscriber';
+import { IndexModule } from './index/index.module';
 @Module({
   imports: [
     AuthModule,
@@ -21,7 +22,7 @@ import { CreatedBySubscriber } from './common/database/subscribers/createdBy.sub
       inject: [ConfigService],
       useClass: TypeOrmConfigService,
     }),
-    ContactsModule,
+    IndexModule,
   ],
 
   providers: [CreatedBySubscriber],
