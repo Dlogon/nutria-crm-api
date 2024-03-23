@@ -38,7 +38,9 @@ export class AuthService {
     email: string,
   ): Promise<{
     access_token: string;
+    access_token_ttl: number;
     refresh_token: string;
+    refresh_token_ttl: number;
   }> {
     const tokenData = {
       sub: userId,
@@ -60,6 +62,8 @@ export class AuthService {
     return {
       access_token: token,
       refresh_token: refreshToken,
+      access_token_ttl: JWTConstants.JWT_TTL,
+      refresh_token_ttl: JWTConstants.JWT__REFRESH_TTL,
     };
   }
 
