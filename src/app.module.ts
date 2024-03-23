@@ -22,6 +22,7 @@ import { IndexModule } from './index/index.module';
       inject: [ConfigService],
       useClass: TypeOrmConfigService,
     }),
+    IndexModule,
   ],
 
   providers: [CreatedBySubscriber],
