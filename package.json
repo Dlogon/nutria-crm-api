@@ -21,7 +21,8 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:create": "npm run typeorm -- migration:create ./migrations/$npm_config_name",
     "migration:run": "npm run typeorm migration:run -- -d ./typeOrm.config.ts",
-    "migration:revert": "npm run typeorm migration:revert -- -d ./typeOrm.config.ts"
+    "migration:revert": "npm run typeorm migration:revert -- -d ./typeOrm.config.ts",
+    "docker:init": "docker compose up -d"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
