@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User as userEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable({})
 export class AuthService {
@@ -18,9 +19,8 @@ export class AuthService {
     private usersRepository: Repository<userEntity>,
   ) {}
 
-  async login(dto: AuthDto) {
+  async login(dto: LoginDto) {
     const message = 'Invalid credentials';
-
     const user = await this.usersRepository.findOne({
       where: { email: dto.email },
     });

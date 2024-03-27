@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 import { JwtRefreshGuard } from './guards/refresh-jwt.guard';
 import { User } from './decorators';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -13,7 +14,7 @@ export class AuthController {
     return this.authService.signup(dto);
   }
   @Post('signin')
-  signin(@Body() dto: AuthDto) {
+  signin(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
 
