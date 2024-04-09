@@ -3,8 +3,9 @@ import { createdBy } from '../../common/database/entities';
 import { Column, Entity, OneToOne, JoinColumn } from 'typeorm';
 import { Source } from '../enums/source';
 import { Account } from 'src/accounts/entities/account.entity';
+import { BaseCreatedByEntity } from '@app/common/database/entities/base.createdBy.entity';
 @Entity()
-export class Lead extends BaseModelEntity implements createdBy {
+export class Lead extends BaseCreatedByEntity implements createdBy {
   @Column({ nullable: true })
   firsName: string;
   @Column({ nullable: false })
