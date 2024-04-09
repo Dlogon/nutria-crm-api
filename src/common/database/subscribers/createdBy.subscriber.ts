@@ -1,9 +1,10 @@
 import { DataSource, EntitySubscriberInterface, EventSubscriber, InsertEvent } from 'typeorm';
 import { BaseModelEntity } from '@common/database/entities';
 import { UserService } from '@app/user/user.service';
+import { BaseCreatedByEntity } from '../entities/base.createdBy.entity';
 
 @EventSubscriber()
-export class CreatedBySubscriber implements EntitySubscriberInterface<BaseModelEntity> {
+export class CreatedBySubscriber implements EntitySubscriberInterface<BaseCreatedByEntity> {
   constructor(
     private currentUserSvc: UserService,
     private connection: DataSource,
@@ -12,7 +13,7 @@ export class CreatedBySubscriber implements EntitySubscriberInterface<BaseModelE
   }
 
   listenTo() {
-    return BaseModelEntity;
+    return BaseCreatedByEntity;
   }
   beforeInsert(event: InsertEvent<any>) {
     const currentUser = this.currentUserSvc.getUsername();
